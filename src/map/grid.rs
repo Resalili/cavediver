@@ -1,16 +1,16 @@
 use bevy::prelude::*;
 
 #[derive(Clone,Copy,PartialEq,Debug)]
-enum Cell{
+pub enum CellType{
     Empty,
     Wall,
 }
 
 #[derive(Resource)]
-struct Map{
-    width : usize,
-    height : usize,
-    grid : Vec<Cell>,
+pub struct Map{
+    pub width : usize,
+    pub height : usize,
+    grid : Vec<CellType>,
 }
 
 impl Map{
@@ -18,22 +18,22 @@ impl Map{
         Self{
             width,
             height,
-            grid: vec![Cell::Wall; width * height]
+            grid: vec![CellType::Wall; width * height]
         }
     }
     fn index(&self,x: i32, y:i32) -> usize {
         y as usize * self.width + x as usize
     }
-    fn in_bounds(&self, x: i32, y: i32) -> bool {
+    pub fn in_bounds(&self, x: i32, y: i32) -> bool {
         x >= 0 && y >= 0 && x < self.width as i32 && y < self.height as i32
     }
-    fn set(&mut self, x: i32, y:i32, cell: Cell) -> bool{
+    pub fn set(&mut self, x: i32, y:i32, cell: CellType) -> bool{
         if !self.in_bounds(x,y) { return false }
         let index =  self.index(x, y);
         self.grid[ index ] = cell;
         true
     } 
-    fn get(&self, x: i32, y: i32) -> Option<Cell> { 
+    pub fn get(&self, x: i32, y: i32) -> Option<CellType> { 
         if !self.in_bounds(x,y) { return None }
         Some(self.grid[self.index(x, y)])
     }
@@ -58,9 +58,9 @@ mod tests {
     fn get_set_test(){
         let mut map = Map::new(10,10);
 
-        assert!(!map.set(10,10, Cell::Empty ));
-        assert!(map.set(1,1, Cell::Empty ));
-        assert_eq!(map.get(1,1).unwrap(), Cell::Empty);
+        assert!(!map.set(10,10, CellType::Empty ));
+        assert!(map.set(1,1, CellType::Empty ));
+        assert_eq!(map.get(1,1).unwrap(), CellType::Empty);
         assert_eq!(map.get(10,10), None)
 
     }
