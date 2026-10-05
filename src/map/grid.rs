@@ -21,7 +21,7 @@ impl Map{
             grid: vec![CellType::Wall; width * height]
         }
     }
-    fn index(&self,x: i32, y:i32) -> usize {
+    pub fn index(&self,x: i32, y:i32) -> usize {
         y as usize * self.width + x as usize
     }
     pub fn in_bounds(&self, x: i32, y: i32) -> bool {
