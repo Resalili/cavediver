@@ -10,7 +10,7 @@ pub fn find_regions(map : &Map) -> Vec<Vec<(i32, i32)>> {
             if visited[map.index(x, y)] { continue; }
             if let Some(cell) = map.get(x,y) {
                 if cell == CellType::Empty {
-                    res.push(collet_region(map, &mut visited, (x,y)));
+                    res.push(collect_region(map, &mut visited, (x,y)));
                 }      
             }
         }
@@ -18,7 +18,7 @@ pub fn find_regions(map : &Map) -> Vec<Vec<(i32, i32)>> {
     res
 }
 
-fn collet_region(map : &Map, visited :&mut Vec<bool>, point: (i32,i32)) -> Vec<(i32, i32)> {
+fn collect_region(map : &Map, visited :&mut Vec<bool>, point: (i32,i32)) -> Vec<(i32, i32)> {
     let mut res = Vec::new();
     let mut quque = VecDeque::new();
     quque.push_back(point);
