@@ -14,7 +14,7 @@ pub struct Map{
 }
 
 impl Map{
-    fn new(width: usize, height : usize) -> Self {
+    pub fn new(width: usize, height : usize) -> Self {
         Self{
             width,
             height,
