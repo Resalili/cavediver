@@ -9,7 +9,7 @@ pub fn generate(map : &mut Map, seed: u32, scale: f64, threshold : f64) {
                 map.set(x,y, CellType::Wall);
                 continue
             } 
-            if (noise.get([x as f64 * scale,y as f64 * scale]) + 1) / 2 > threshold 
+            if (noise.get([x as f64 * scale,y as f64 * scale]) + 1.) / 2. > threshold 
             { map.set(x,y, CellType::Empty); } else { map.set(x,y, CellType::Wall); }
         }
     }
