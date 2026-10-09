@@ -1,5 +1,6 @@
 use std::collections::VecDeque;
 use super::grid::*;
+use crate::config::MINIMAL_ROOM_SIZE;
 
 pub fn find_regions(map : &Map) -> Vec<Vec<(i32, i32)>> {
     let (width, height) = (map.width as i32, map.height as i32);
@@ -36,6 +37,21 @@ fn collect_region(map : &Map, visited :&mut Vec<bool>, point: (i32,i32)) -> Vec<
             }
         }
         res.push(current);
+    }
+    res
+}
+
+fn keep_rooms(map :&mut Map) -> Vec<Vec<(i32,i32)>> {
+    let mut regions = find_regions(map);
+    let mut res = Vec::new();
+    while let Some(region) = regions.pop() {
+        if region.len() < MINIMAL_ROOM_SIZE as usize {
+            for (x,y) in region {
+                map.set(x,y, CellType::Wall);
+            }
+            continue;
+        }
+        res.push(region);
     }
     res
 }

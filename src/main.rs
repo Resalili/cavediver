@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-
+mod config;
 mod map;
 
 
