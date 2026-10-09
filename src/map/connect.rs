@@ -41,7 +41,7 @@ fn collect_region(map : &Map, visited :&mut Vec<bool>, point: (i32,i32)) -> Vec<
     res
 }
 
-fn keep_rooms(map :&mut Map) -> Vec<Vec<(i32,i32)>> {
+pub fn keep_rooms(map :&mut Map) -> Vec<Vec<(i32,i32)>> {
     let mut regions = find_regions(map);
     let mut res = Vec::new();
     while let Some(region) = regions.pop() {
